@@ -16,8 +16,6 @@ class StoreMovieRequest extends FormRequest
         return true;
     }
 
-
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,7 +24,11 @@ class StoreMovieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|unique:movie',
+            'title' => [
+                'required',
+                'string',
+                Rule::unique('movie', 'title')->ignore($this->movie),
+            ],
             'poster_url' => 'url',
             'release_date' => 'required|date',
             'genre' => [

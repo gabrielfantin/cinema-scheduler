@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMovieRequest;
-use App\Http\Requests\UpdateMovieRequest;
 use App\Models\Movie;
 
 class MovieController extends Controller
@@ -35,9 +34,10 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMovieRequest $request, Movie $movie)
+    public function update(StoreMovieRequest $request, Movie $movie)
     {
-        return $movie->update($request->validated());
+        $movie->update($request->validated());
+        return $movie;
     }
 
     /**
@@ -45,6 +45,6 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        return $movie->delete();
+        return $movie->delete() ? response(null, 204) : response(null, 500);
     }
 }
