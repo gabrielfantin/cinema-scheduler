@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Movie API
+  description: API for managing movies
+  version: 1.0.0
+servers:
+  - url: /api
+paths:
+  /movies:
+    get:
+      summary: List all movies
+      responses:
+        '200':
+          description: A JSON array of movies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+    post:
+      summary: Create a new movie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+  /movies/{movie}:
+    get:
+      summary: Get a movie by ID
+      parameters:
+        - name: movie
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single movie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+    put:
+      summary: Update a movie
+      parameters:
+        - name: movie
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovieInput'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+    delete:
+      summary: Delete a movie
+      parameters:
+        - name: movie
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        summary:
+          type: string
+          nullable: true
+        poster_url:
+          type: string
+          format: uri
+          nullable: true
+        release_date:
+          type: string
+          format: date
+        genre:
+          type: string
+          enum: [Action, Comedy, Drama, Fantasy, Horror, Mystery, Romance, Thriller, SciFi]
+    MovieInput:
+      type: object
+      required:
+        - title
+        - release_date
+        - genre
+      properties:
+        title:
+          type: string
+        poster_url:
+          type: string
+          format: uri
+        release_date:
+          type: string
+          format: date
+        genre:
+          type: string
+          enum: [Action, Comedy, Drama, Fantasy, Horror, Mystery, Romance, Thriller, SciFi]
