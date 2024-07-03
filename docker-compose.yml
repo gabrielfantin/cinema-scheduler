@@ -71,6 +71,17 @@ services:
             - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
+    angular-frontend:
+        build:
+            context: ./resources/js/frontend
+            dockerfile: Dockerfile
+        ports:
+            - '4200:4200'
+        volumes:
+            - './resources/js/frontend:/usr/src/app'
+            - 'node_modules:/usr/src/app/node_modules' # this volume is necessary to avoid errors during host startup, don't know exactly why
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
@@ -79,3 +90,4 @@ volumes:
         driver: local
     sail-redis:
         driver: local
+    node_modules: {}
