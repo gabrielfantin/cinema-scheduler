@@ -79,7 +79,7 @@ services:
             - '4200:4200'
         volumes:
             - './resources/js/frontend:/usr/src/app'
-            - 'node_modules:/usr/src/app/node_modules' # this volume is necessary to avoid errors during host startup, don't know exactly why
+            - 'node_modules:/usr/src/app/node_modules' # this volume is necessary to avoid errors during host startup, don't know exactly why but got the solution from here https://stackoverflow.com/a/78474868/3365003
         networks:
             - sail
 networks:
