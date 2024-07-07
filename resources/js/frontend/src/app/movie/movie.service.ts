@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  private apiIUrl = 'http://localhost/api/movies';
+  private apiIUrl = environment.api.url + '/movies';
 
   constructor(private http: HttpClient) { }
 
