@@ -1,5 +1,33 @@
-<main>
-  <app-movie />
-</main> 
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      @for (route of routes; track route.title) {
+        <a mat-list-item routerLink="{{ route.path }}" routerLinkActive="active">
+          <mat-icon>{{ route.icon }}</mat-icon>
+          {{ route.title }}
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span>frontend</span>
+    </mat-toolbar>
+    
+    <router-outlet />
 
-<router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

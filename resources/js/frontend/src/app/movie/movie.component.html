@@ -1,11 +1,6 @@
-<p>Welcome to our movies</p>
-
 @for(movie of movies; track movie.id) {
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">{{ movie.title }}</h5>
-            <p class="card-text">{{ movie.summary }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
+    <mat-card appearance="outlined">
+        <mat-card-title>{{ movie.title }}</mat-card-title>
+        <mat-card-content>{{ movie.summary }} </mat-card-content>
+    </mat-card>
 }
